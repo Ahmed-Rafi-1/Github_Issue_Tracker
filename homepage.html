@@ -26,10 +26,35 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+    <!-- fontawsome cdn -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
     <!-- css stylesheet -->
     <link rel="stylesheet" href="./style/style.css" />
   </head>
   <body>
-   
+    <header class="bg-base-100 shadow-sm">
+      <div class="navbar flex justify-between w-11/12 mx-auto">
+        <div class="flex items-center gap-1">
+          <img src="./assets/github-logo.png" alt="logo" class="w-9 h-9" />
+          <p class="font-semibold text-2xl">GitHub Issues Tracker</p>
+        </div>
+        <div class="flex gap-2">
+          <input
+            type="text"
+            placeholder="Search issue"
+            class="input input-bordered w-24 md:w-auto"
+          />
+          <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Issue</button>
+        </div>
+      </div>
+    </header>
+    <script src="./script/script.js"></script>
   </body>
 </html>
