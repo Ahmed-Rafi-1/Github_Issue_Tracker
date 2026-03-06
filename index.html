@@ -27,11 +27,52 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <!-- css stylesheet -->
-     <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="./style/style.css" />
   </head>
   <body>
-    <header></header>
-    <main></main>
+    <main>
+      <section class="h-screen flex justify-center items-center">
+        <div
+          class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"
+        >
+          <div class="flex flex-col text-center items-center mb-6">
+            <img src="./assets/github-logo.png" alt="logo" class="mb-6" />
+            <h2 class="font-semibold text-2xl">GitHub Issues Tracker</h2>
+            <p class="font-normal text-base text-[#64748b]">
+              Sign in to manage your issues
+            </p>
+          </div>
+          <label class="label font-medium text-black">Username</label>
+          <input
+            id="loginUsername"
+            type="email"
+            class="input rounded-lg"
+            placeholder="Enter Username"
+          />
+
+          <label class="label font-medium text-black">Password</label>
+          <input
+            id="loginPassword"
+            type="password"
+            class="input rounded-lg"
+            placeholder="Enter Password"
+          />
+
+          <button class="btn btn-primary mt-4 rounded-lg">Login</button>
+
+          <div class="flex items-center w-full mx-auto gap-3 m-6">
+            <div class="flex-1 border-t border-gray-300"></div>
+            <span class="text-gray-500 text-sm">OR</span>
+            <div class="flex-1 border-t border-gray-300"></div>
+          </div>
+          <div class="text-center">
+            <p class="text-xs text-gray-500 mb-3">Demo Credentials:</p>
+            <p><span class="font-bold">Username:</span> admin</p>
+            <p><span class="font-bold">Password:</span> admin123</p>
+          </div>
+        </div>
+      </section>
+    </main>
     <script src="./script/login.js"></script>
   </body>
 </html>
