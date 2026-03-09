@@ -63,7 +63,12 @@
                 <path d="m21 21-4.3-4.3"></path>
               </g>
             </svg>
-            <input id="search-input" type="search" required placeholder="Search" />
+            <input
+              id="search-input"
+              type="search"
+              required
+              placeholder="Search"
+            />
           </label>
           <button id="btn-search" class="btn btn-primary">
             <i class="fa-solid fa-plus"></i> New Issue
@@ -75,14 +80,31 @@
     <main class="w-11/12 mx-auto mt-14">
       <!-- All buttons here -->
       <div class="w-full shadow-sm bg-slate-50 p-6 rounded-lg mb-4">
-        <button onclick="toggleStyle('btn-all')" id="btn-all" class="btn btn-primary">All</button>
-        <button onclick="toggleStyle('btn-open')" id="btn-open" class="btn btn-soft">Open</button>
-        <button onclick="toggleStyle('btn-closed')" id="btn-closed" class="btn btn-soft">Closed</button>
+        <button
+          onclick="toggleStyle('btn-all')"
+          id="btn-all"
+          class="btn btn-primary"
+        >
+          All
+        </button>
+        <button
+          onclick="toggleStyle('btn-open')"
+          id="btn-open"
+          class="btn btn-soft"
+        >
+          Open
+        </button>
+        <button
+          onclick="toggleStyle('btn-closed')"
+          id="btn-closed"
+          class="btn btn-soft"
+        >
+          Closed
+        </button>
       </div>
 
       <!-- Total issues tracker here -->
-      <div
-        class="w-full shadow-sm rounded-lg p-6">
+      <div id="all-issue-card" class="w-full shadow-sm rounded-lg p-6">
         <div class="flex justify-between bg-slate-50 border-b-0 mb-6">
           <div class="flex gap-2 items-center">
             <div
@@ -108,25 +130,26 @@
             </div>
           </div>
         </div>
-        <div id="card-section" class="bg-[#FBFBFB] grid grid-cols-4 gap-3">
-          
-          
-        </div>
+        <div
+          id="card-section"
+          class="bg-[#FBFBFB] grid grid-cols-4 gap-3"
+        ></div>
+      </div>
+      <div id="spinner" class="flex justify-center items-center h-100 hidden">
+        <span class="loading loading-spinner loading-xl"></span>
       </div>
       <!-- Open the modal using ID.showModal() method -->
-<dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
-  <div class="modal-box p-8">
-    <div id="issue-details-container">
-      
-    </div>
-    <div class="modal-action">
-      <form method="dialog">
-        <!-- if there is a button in form, it will close the modal -->
-        <button class="btn btn-primary">Close</button>
-      </form>
-    </div>
-  </div>
-</dialog>
+      <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box p-8">
+          <div id="issue-details-container"></div>
+          <div class="modal-action">
+            <form method="dialog">
+              <!-- if there is a button in form, it will close the modal -->
+              <button class="btn btn-primary">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </main>
     <script src="./script/script.js"></script>
   </body>
