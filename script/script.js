@@ -16,6 +16,19 @@ document.getElementById("btn-closed").addEventListener("click", () => {
     filterIssues("closed");
 });
 
+let allIssues = [];
+
+const loadIssues = async () => {
+  const res = await fetch(
+    "https://phi-lab-server.vercel.app/api/v1/lab/issues",
+  );
+    const data = await res.json();
+    allIssues = data.data;
+    
+    displayIssues(data.data); // showing all section by default
+};
+loadIssues();
+
 //search function
 btnSearch.addEventListener("click", () => {
     const searchTerm = searchInput.value.toLowerCase();
@@ -40,18 +53,6 @@ function toggleStyle(id) {
   currentBtn.classList.add("btn-primary");
 }
 
-let allIssues = [];
-
-const loadIssues = async () => {
-  const res = await fetch(
-    "https://phi-lab-server.vercel.app/api/v1/lab/issues",
-  );
-    const data = await res.json();
-    allIssues = data.data
-    
-    displayIssues(data.data); // showing all section by default
-};
-loadIssues();
 
 const filterIssues = (status) => {
     if (status === "all") {
@@ -91,6 +92,8 @@ const displayIssues = (issue) => {
     const priority = issue.priority.toLowerCase();
     const activeStyle = priorityStyles[priority]
     const cardDiv = document.createElement("div");
+    cardDiv.className = "cursor-pointer";
+    cardDiv.addEventListener("click", () => openModal(issue.id));    
     cardDiv.innerHTML = `
         <div class="card border-t-3 ${issue.status === 'open' ? 'border-[#00A96E]' : 'border-[#A855F7]'} p-4 shadow-sm space-y-3 h-full">
             <div class="flex justify-between mb-3">
@@ -115,4 +118,53 @@ const displayIssues = (issue) => {
         `;
     allCardSection.appendChild(cardDiv);
   });
+};
+
+const openModal = async (issueId) => {
+    // 1. Fetch data
+    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${issueId}`);
+    const data = await res.json();
+    const issue = data.data;
+    const priorityStyles = {
+        high: "bg-[#feecec] text-red-600",
+        medium: "bg-[#FFF6D1] text-[#F59E0B]",
+        low: "bg-[#EEEFF2] text-[#9CA3AF]"
+    };
+    const issueDetailsContainer = document.getElementById('issue-details-container');
+    issueDetailsContainer.innerHTML = "";
+    const modalDiv = document.createElement('div')
+    const priority = issue.priority.toLowerCase();
+    const activeStyle = priorityStyles[priority]
+    modalDiv.classList.add('space-y-4')
+
+    modalDiv.innerHTML = `
+    <h2 class="font-bold text-2xl">${issue.title}</h2>
+      <div class="flex items-center">
+        <div class="rounded-full ${issue.status === 'open' ? 'bg-[#00a96e]' : 'bg-[#A855F7]'} p-2 font-medium text-xs text-white uppercase">${issue.status}</div>
+        <img src="./assets/dot.png" alt="" class="w-1 h-1 mx-2">
+        <p class="font-normal text-xs text-[#64748b]">Opened by ${issue.author}</p>
+        <img src="./assets/dot.png" alt="" class="w-1 h-1 mx-2">
+        <p class="font-normal text-xs text-[#64748b]">${new Date(issue.createdAt).toLocaleDateString('en-US')}</p>
+      </div>
+      <div class="flex gap-1">
+        ${labelsHandler(issue.labels)}
+      </div>
+      <p class="font-normal text-base text-[#64748b]">${issue.description}</p>
+      <div class="flex gap-40 items-center">
+        <div>
+          <p class="font-normal text-base text-[#64748b]">Assignee:</p>
+          <p class="font-semibold text-base">${issue.assignee ? issue.assignee : "Not Assigned"}</p>
+        </div>
+        <div>
+          <p class="font-normal text-base text-[#64748b]">Priority:</p>
+            <div class="rounded-full ${activeStyle}">
+                <span class="p-3">${priority.toUpperCase()}</span>
+            </div>
+        </div>
+      </div>
+    `
+    issueDetailsContainer.appendChild(modalDiv);
+
+
+    document.getElementById("my_modal_5").showModal();
 };
