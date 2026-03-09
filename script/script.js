@@ -2,6 +2,9 @@ const btnAll = document.getElementById("btn-all");
 const btnOpen = document.getElementById("btn-open");
 const btnClosed = document.getElementById("btn-closed");
 const totalIssue = document.getElementById('total-issues');
+const searchInput = document.getElementById("search-input");
+const btnSearch = document.getElementById("btn-search");
+
 
 document.getElementById("btn-all").addEventListener("click", () => {
     filterIssues("all");
@@ -12,6 +15,17 @@ document.getElementById("btn-open").addEventListener("click", () => {
 document.getElementById("btn-closed").addEventListener("click", () => {
     filterIssues("closed");
 });
+
+//search function
+btnSearch.addEventListener("click", () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const filtered = allIssues.filter(issue => 
+        issue.title && issue.title.toLowerCase().includes(searchTerm)
+    );
+    displayIssues(filtered);
+    totalIssueHandler(filtered.length);
+});
+
 
 // button toggle stye
 function toggleStyle(id) {
@@ -52,7 +66,8 @@ const filterIssues = (status) => {
 };
 
 const totalIssueHandler = (count) => {
-    totalIssue.innerText = `${count} Issues`;
+    const label = count === 1 ? "Issue" : "Issues";
+    totalIssue.innerText = `${count} ${label}`;
     
 }
 
@@ -93,7 +108,7 @@ const displayIssues = (issue) => {
             </div>
             <hr class="text-gray-400">
             <div class="space-y-2">
-              <p class="font-normal text-xs text-[#64748b]">#${issue.id}by ${issue.author}</p>
+              <p class="font-normal text-xs text-[#64748b]">#${issue.id} by ${issue.author}</p>
               <p class="font-normal text-xs text-[#64748b]">${new Date(issue.createdAt).toLocaleDateString('en-US')}</p>
             </div>
           </div>
