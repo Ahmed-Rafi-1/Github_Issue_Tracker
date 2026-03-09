@@ -10,7 +10,6 @@
       type="image/x-icon"
     />
 
-    <!-- Geist Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,7 +17,6 @@
       rel="stylesheet"
     />
 
-    <!-- Daisyui + Tailwindcss -->
     <link
       href="https://cdn.jsdelivr.net/npm/daisyui@5"
       rel="stylesheet"
@@ -26,14 +24,13 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <!-- css stylesheet -->
     <link rel="stylesheet" href="./style/style.css" />
   </head>
   <body>
     <main>
-      <section class="h-screen flex justify-center items-center">
+      <section class="min-h-screen sm:h-screen flex justify-center items-center px-4 sm:px-0 py-8 sm:py-0">
         <div
-          class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"
+          class="fieldset bg-base-200 border-base-300 rounded-box w-full sm:w-xs border p-4"
         >
           <div class="flex flex-col text-center items-center mb-6">
             <img src="./assets/github-logo.png" alt="logo" class="mb-6" />
@@ -46,7 +43,7 @@
           <input
             id="loginUsername"
             type="email"
-            class="input rounded-lg"
+            class="input rounded-lg w-full"
             placeholder="Enter Username"
           />
 
@@ -54,13 +51,13 @@
           <input
             id="loginPassword"
             type="password"
-            class="input rounded-lg"
+            class="input rounded-lg w-full"
             placeholder="Enter Password"
           />
 
-          <button id="loginBtn" class="btn btn-primary mt-4 rounded-lg">Login</button>
+          <button id="loginBtn" class="btn btn-primary mt-4 rounded-lg w-full">Login</button>
 
-          <div class="flex items-center w-full mx-auto gap-3 m-6">
+          <div class="flex items-center w-full mx-auto gap-3 my-6">
             <div class="flex-1 border-t border-gray-300"></div>
             <span class="text-gray-500 text-sm">OR</span>
             <div class="flex-1 border-t border-gray-300"></div>

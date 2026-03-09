@@ -25,15 +25,15 @@ const manageSpinner = (status) => {
 let allIssues = [];
 
 const loadIssues = async () => {
-    manageSpinner(true);
+  manageSpinner(true);
   const res = await fetch(
     "https://phi-lab-server.vercel.app/api/v1/lab/issues",
   );
   const data = await res.json();
   allIssues = data.data;
 
-    displayIssues(data.data); // showing all section by default
-    manageSpinner(false);
+  displayIssues(data.data); // showing all section by default
+  manageSpinner(false);
 };
 loadIssues();
 
@@ -64,7 +64,6 @@ function toggleStyle(id) {
   currentBtn.classList.add("btn-primary");
 }
 
-
 const filterIssues = (status) => {
   if (status === "all") {
     displayIssues(allIssues);
@@ -84,8 +83,8 @@ const totalIssueHandler = (count) => {
 
 const labelsHandler = (arr) => {
   const htmlElement = arr.map(
-    (el) => `<div class="rounded-full bg-[#fde68a]">
-                <span class="text-gray-600 p-2 font-medium text-xs">${el}</span>
+    (el) => `<div class="rounded-full bg-[#fde68a] mb-1">
+                <span class="text-gray-600 p-2 font-medium text-xs whitespace-nowrap">${el}</span>
               </div>`,
   );
   return htmlElement.join(" ");
@@ -103,7 +102,7 @@ const displayIssues = (issue) => {
     const priority = issue.priority.toLowerCase();
     const activeStyle = priorityStyles[priority];
     const cardDiv = document.createElement("div");
-    cardDiv.className = "cursor-pointer";
+    cardDiv.className = "cursor-pointer h-full";
     cardDiv.addEventListener("click", () => openModal(issue.id));
     cardDiv.innerHTML = `
         <div class="card border-t-3 ${issue.status === "open" ? "border-[#00A96E]" : "border-[#A855F7]"} p-4 shadow-sm space-y-3 h-full">
@@ -117,11 +116,11 @@ const displayIssues = (issue) => {
               <h2 class="font-semibold text-sm">${issue.title}</h2>
               <p class="font-normal text-xs text-[#64748b] line-clamp-2">${issue.description}</p>
             </div>
-            <div class="flex gap-1">
+            <div class="flex gap-1 flex-wrap">
               ${labelsHandler(issue.labels)}
             </div>
-            <hr class="text-gray-400">
-            <div class="space-y-2">
+            <hr class="text-gray-400 mt-auto">
+            <div class="space-y-2 pt-2">
               <p class="font-normal text-xs text-[#64748b]">#${issue.id} by ${issue.author}</p>
               <p class="font-normal text-xs text-[#64748b]">${new Date(issue.createdAt).toLocaleDateString("en-US")}</p>
             </div>
@@ -153,26 +152,26 @@ const openModal = async (issueId) => {
   modalDiv.classList.add("space-y-4");
 
   modalDiv.innerHTML = `
-    <h2 class="font-bold text-2xl">${issue.title}</h2>
-      <div class="flex items-center">
+    <h2 class="font-bold text-xl sm:text-2xl">${issue.title}</h2>
+      <div class="flex flex-wrap items-center gap-y-2">
         <div class="rounded-full ${issue.status === "open" ? "bg-[#00a96e]" : "bg-[#A855F7]"} p-2 font-medium text-xs text-white uppercase">${issue.status}</div>
-        <img src="./assets/dot.png" alt="" class="w-1 h-1 mx-2">
-        <p class="font-normal text-xs text-[#64748b]">Opened by ${issue.author}</p>
-        <img src="./assets/dot.png" alt="" class="w-1 h-1 mx-2">
-        <p class="font-normal text-xs text-[#64748b]">${new Date(issue.createdAt).toLocaleDateString("en-US")}</p>
+        <img src="./assets/dot.png" alt="" class="w-1 h-1 mx-2 hidden sm:block">
+        <p class="font-normal text-xs text-[#64748b] w-full sm:w-auto mt-2 sm:mt-0">Opened by ${issue.author}</p>
+        <img src="./assets/dot.png" alt="" class="w-1 h-1 mx-2 hidden sm:block">
+        <p class="font-normal text-xs text-[#64748b] w-full sm:w-auto">${new Date(issue.createdAt).toLocaleDateString("en-US")}</p>
       </div>
-      <div class="flex gap-1">
+      <div class="flex gap-1 flex-wrap">
         ${labelsHandler(issue.labels)}
       </div>
-      <p class="font-normal text-base text-[#64748b]">${issue.description}</p>
-      <div class="flex gap-40 items-center">
+      <p class="font-normal text-sm sm:text-base text-[#64748b]">${issue.description}</p>
+      <div class="flex flex-col sm:flex-row gap-4 sm:gap-40 items-start sm:items-center mt-6">
         <div>
-          <p class="font-normal text-base text-[#64748b]">Assignee:</p>
-          <p class="font-semibold text-base">${issue.assignee ? issue.assignee : "Not Assigned"}</p>
+          <p class="font-normal text-sm sm:text-base text-[#64748b]">Assignee:</p>
+          <p class="font-semibold text-sm sm:text-base mt-1">${issue.assignee ? issue.assignee : "Not Assigned"}</p>
         </div>
         <div>
-          <p class="font-normal text-base text-[#64748b]">Priority:</p>
-            <div class="rounded-full ${activeStyle}">
+          <p class="font-normal text-sm sm:text-base text-[#64748b] mb-2">Priority:</p>
+            <div class="rounded-full inline-block ${activeStyle}">
                 <span class="p-3">${priority.toUpperCase()}</span>
             </div>
         </div>
