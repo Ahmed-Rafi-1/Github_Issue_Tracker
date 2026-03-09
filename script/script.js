@@ -1,6 +1,17 @@
 const btnAll = document.getElementById("btn-all");
 const btnOpen = document.getElementById("btn-open");
 const btnClosed = document.getElementById("btn-closed");
+const totalIssue = document.getElementById('total-issues');
+
+document.getElementById("btn-all").addEventListener("click", () => {
+    filterIssues("all");
+});
+document.getElementById("btn-open").addEventListener("click", () => {
+    filterIssues("open");
+});
+document.getElementById("btn-closed").addEventListener("click", () => {
+    filterIssues("closed");
+});
 
 // button toggle stye
 function toggleStyle(id) {
@@ -15,15 +26,35 @@ function toggleStyle(id) {
   currentBtn.classList.add("btn-primary");
 }
 
+let allIssues = [];
+
 const loadIssues = async () => {
   const res = await fetch(
     "https://phi-lab-server.vercel.app/api/v1/lab/issues",
   );
-  const data = await res.json();
-  displayIssues(data.data);
+    const data = await res.json();
+    allIssues = data.data
+    
+    displayIssues(data.data); // showing all section by default
 };
 loadIssues();
 
+const filterIssues = (status) => {
+    if (status === "all") {
+        displayIssues(allIssues);
+        totalIssueHandler(allIssues.length);
+        return;
+    }
+    const filtered = allIssues.filter(issue => issue.status === status);
+    // console.log(filtered);
+    totalIssueHandler(filtered.length)
+    displayIssues(filtered);
+};
+
+const totalIssueHandler = (count) => {
+    totalIssue.innerText = `${count} Issues`;
+    
+}
 
 const labelsHandler = (arr) => {
     const htmlElement = arr.map((el) => `<div class="rounded-full bg-[#fde68a]">
